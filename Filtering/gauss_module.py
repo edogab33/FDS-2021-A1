@@ -14,13 +14,12 @@ The function should return the Gaussian values Gx computed at the indexes x
 
 def gauss(sigma):
     lb = int(-3*sigma)
-    up = int(3*sigma)
+    ub = int(3*sigma)
     x = list()
     Gx = list()
-    for i in range(lb, up+1):
+    for i in range(lb, ub+1):
         x.append(i)
-        Gx.append((1 / math.sqrt(2 * math.pi * sigma)) * math.exp(-i ** 2 / (2 * sigma ** 2)))
-
+        Gx.append((1 / math.sqrt(2 * math.pi) * sigma) * math.exp(-i ** 2 / (2 * sigma ** 2)))
     return Gx, x
 
 
@@ -32,27 +31,14 @@ Input: image, sigma (standard deviation)
 Output: smoothed image
 """
 
-def GaussianMatrix(X,sigma):
-       row,col=X.shape
-       GassMatrix=np.zeros(shape=(row,row))
-       X=np.asarray(X)
-       i=0
-       for v_i in X:
-           j=0
-           for v_j in X:
-               GassMatrix[i,j]=Gaussian(v_i.T,v_j.T,sigma)
-               j+=1
-           i+=1
-       return GassMatrix
-
-def Gaussian(x,z,sigma):
-       return np.exp((-(np.linalg.norm(x-z)**2))/(2*sigma**2))
-
-
 def gaussianfilter(img, sigma):
     img = np.array(img)
-    kernel = GaussianMatrix(img, sigma)
-    conv2(img, kernel)
+    gx, x = gauss(sigma)
+
+    filter_kernel = np.outer(gx, gx) # outer product, to obtain a matrix
+    filter_kernel /= np.sum(filter_kernel)  # normalize the matrix
+
+    smooth_img = conv2(img, filter_kernel, mode="same") # 'mode="same"' eliminates black padding
     return smooth_img
 
 
