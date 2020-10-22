@@ -50,8 +50,14 @@ The function should return the Gaussian derivative values Dx computed at the ind
 
 
 def gaussdx(sigma):
+    lb = int(-3*sigma)
+    ub = int(3*sigma)
+    x = list()
+    Dx = list()
 
-    # ...
+    for i in range(lb, ub+1):
+        x.append(i)
+        Dx.append(-(i / math.sqrt(2 * math.pi) * sigma**3) * math.exp(-i ** 2 / (2 * sigma ** 2)))
 
     return Dx, x
 
