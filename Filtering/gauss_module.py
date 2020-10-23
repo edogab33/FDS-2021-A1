@@ -63,7 +63,11 @@ def gaussdx(sigma):
 
 
 def gaussderiv(img, sigma):
+    Dx, x = gaussdx(sigma)
 
-    # ...
+    Dx = Dx.reshape(1, Dx.size)
+
+    imgDx = conv2(img, Dx, 'same')
+    imgDy = conv2(img, Dx.T, 'same')
 
     return imgDx, imgDy
