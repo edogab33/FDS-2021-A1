@@ -20,7 +20,7 @@ def gauss(sigma):
     for i in range(lb, ub+1):
         x.append(i)
         Gx.append((1 / math.sqrt(2 * math.pi) * sigma) * math.exp(-i ** 2 / (2 * sigma ** 2)))
-    return Gx, x
+    return np.array(Gx), x
 
 
 """
@@ -59,7 +59,7 @@ def gaussdx(sigma):
         x.append(i)
         Dx.append(-(i / math.sqrt(2 * math.pi) * sigma**3) * math.exp(-i ** 2 / (2 * sigma ** 2)))
 
-    return Dx, x
+    return np.array(Dx), x
 
 
 def gaussderiv(img, sigma):
