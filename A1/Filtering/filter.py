@@ -30,7 +30,7 @@ plt.show()
 
 ## function gaussianfilter (Question 1.b)
 
-img = rgb2gray(np.array(Image.open("/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/Assignment1/Filtering/graf.png")))
+img = rgb2gray(np.array(Image.open("/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Filtering/graf.png")))
 smooth_img = gauss_module.gaussianfilter(img, sigma)
 
 plt.figure(2)
@@ -90,7 +90,7 @@ plt.show()
 
 ## function gaussderiv (Question 1.e)
 
-img_c = np.array(Image.open("/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/Assignment1/Filtering/graf.png")).astype('double')
+img_c = np.array(Image.open("/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Filtering/graf.png")).astype('double')
 img = rgb2gray(img_c)
 [imgDx, imgDy] = gauss_module.gaussderiv(img, 7.0)
 
