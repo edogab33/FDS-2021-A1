@@ -21,12 +21,18 @@ import gauss_module
 def normalized_hist(img_gray, num_bins):
     assert len(img_gray.shape) == 2, 'image dimension mismatch'
     assert img_gray.dtype == 'float', 'incorrect image type'
-
-
-    #... (your code here)
-
+    min_val = np.amin(img_gray)
+    max_val = np.amax(img_gray)
+    hists = np.array([])
+    hist_vals = [0]*(num_bins+1)
+    for row in img_gray:
+      for d in row:
+        bins = int(num_bins * ((d - min_val) / (max_val - min_val)))
+        hists[num_bins] += 1
+    bins = [min_val + i*(max_val - min_val)/len(hist_vals) for i in range(len(hist_vals))]
 
     return hists, bins
+
 
 
 

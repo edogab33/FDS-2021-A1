@@ -10,12 +10,9 @@ import match_module
 import rpc_module
 
 
-
 def rgb2gray(rgb):
-
     r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
     gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
-
     return gray
 
 
@@ -25,7 +22,7 @@ def rgb2gray(rgb):
 
 ## gray-value histograms (Question 2.a)
 
-img_color = np.array(Image.open('./model/obj100__0.png'))
+img_color = np.array(Image.open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model/obj100__0.png'))
 img_gray = rgb2gray(img_color.astype('double'))
 
 plt.figure(1)
@@ -109,8 +106,8 @@ print('distance functions:', distance_types)
 hist_types = ['grayvalue', 'rgb', 'rg', 'dxdy']
 print('histogram types:', hist_types)
 
-num_bins_color = 30;
-num_bins_gray = 90;
+num_bins_color = 30
+num_bins_gray = 90
 
 for img1_file in image_files1:
     img1_color = np.array(Image.open(img1_file))
@@ -168,9 +165,9 @@ with open('query.txt') as fp:
     query_images = fp.readlines()
 query_images = [x.strip() for x in query_images] 
 
-dist_type = 'intersect';
-hist_type = 'rg';
-num_bins = 30;
+dist_type = 'intersect'
+hist_type = 'rg'
+num_bins = 30
 
 [best_match, D] = match_module.find_best_match(model_images, query_images, dist_type, hist_type, num_bins)
 
