@@ -19,61 +19,22 @@ import gauss_module
 #  img_gray - input image in grayscale format
 #  num_bins - number of bins in the histogram
 def normalized_hist(img_gray, num_bins):
-    assert len(img_gray.shape) == 2, 'image dimension mismatch'
-    assert img_gray.dtype == 'float', 'incorrect image type'
-    #min_val = np.amin(img_gray)
-    #max_val = np.amax(img_gray)
-    #hists = np.full((num_bins), 0)
-    #hist_vals = [0]*(num_bins+1)
-    #for row in img_gray:
-    #  for d in row:
-    #    bins = int(num_bins * ((d - min_val) / (max_val - min_val)))
-    #    hists[num_bins] += 1
-    #bins = [min_val + i*(max_val - min_val)/len(hist_vals) for i in range(len(hist_vals))]
-    bins = np.array([i for i in range(40)])
-    hists = np.full((num_bins), 0)
-    #hists_nn = np.full((256), 0)
-    print(num_bins)
-    l = list()
-    for row in img_gray:
-      for col in row:
-        l += [round(col*256)]
-    contare = dict()
-    for e in l:
-      if e in contare.keys():
-        contare[e] += 1
-      else:
-        contare[e] = 1
-    print(max(contare.values()))
+  assert len(img_gray.shape) == 2, 'image dimension mismatch'
+  assert img_gray.dtype == 'float', 'incorrect image type'
 
-    #d = dict()
-    #img_gray = img_gray.astype(int)
-    #for row in img_gray:
-    #  for col in row:
-    #    if np.trunc(col)+1 in d.keys():
-    #      d[np.trunc(col)+1] += 1
-    #    else:
-    #      d[np.trunc(col)+1] = 1
-    #print(d)
-    #print(max(d.values()))
+  data = []
+  for row in img_gray:
+    for col in row:
+      data.append(col)
+  data = np.array(data)
 
-    #hists_nn = -np.sort(-hists_nn)
-    #print(hists_nn)
+  bin_array=np.linspace(0,255,num_bins)
 
-    #hists = hists_nn[0:40]
-    #print(hists)
-    #hists = hists / np.sum(hists)
-    #hists = np.amax(hists_nn)  
-    
-    
-    #hists is an array containing the heights of the bins
-    #bins 
-    h,b = hist(img_gray, 40)
-    print(h,b)
-    return h,b
-
-
-
+  my_histogram=[]
+  for i in range(len(bin_array)-1):
+    mask = (data>=bin_array[i])&(data<bin_array[i+1])
+    my_histogram.append(len(data[mask]))
+  return my_histogram, bin_array
 
 #  Compute the *joint* histogram for each color channel in the image
 #  The histogram should be normalized so that sum of all values equals 1
