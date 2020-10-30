@@ -21,17 +21,56 @@ import gauss_module
 def normalized_hist(img_gray, num_bins):
     assert len(img_gray.shape) == 2, 'image dimension mismatch'
     assert img_gray.dtype == 'float', 'incorrect image type'
-    min_val = np.amin(img_gray)
-    max_val = np.amax(img_gray)
-    hists = np.array([])
-    hist_vals = [0]*(num_bins+1)
+    #min_val = np.amin(img_gray)
+    #max_val = np.amax(img_gray)
+    #hists = np.full((num_bins), 0)
+    #hist_vals = [0]*(num_bins+1)
+    #for row in img_gray:
+    #  for d in row:
+    #    bins = int(num_bins * ((d - min_val) / (max_val - min_val)))
+    #    hists[num_bins] += 1
+    #bins = [min_val + i*(max_val - min_val)/len(hist_vals) for i in range(len(hist_vals))]
+    bins = np.array([i for i in range(40)])
+    hists = np.full((num_bins), 0)
+    #hists_nn = np.full((256), 0)
+    print(num_bins)
+    l = list()
     for row in img_gray:
-      for d in row:
-        bins = int(num_bins * ((d - min_val) / (max_val - min_val)))
-        hists[num_bins] += 1
-    bins = [min_val + i*(max_val - min_val)/len(hist_vals) for i in range(len(hist_vals))]
+      for col in row:
+        l += [round(col*256)]
+    contare = dict()
+    for e in l:
+      if e in contare.keys():
+        contare[e] += 1
+      else:
+        contare[e] = 1
+    print(max(contare.values()))
 
-    return hists, bins
+    #d = dict()
+    #img_gray = img_gray.astype(int)
+    #for row in img_gray:
+    #  for col in row:
+    #    if np.trunc(col)+1 in d.keys():
+    #      d[np.trunc(col)+1] += 1
+    #    else:
+    #      d[np.trunc(col)+1] = 1
+    #print(d)
+    #print(max(d.values()))
+
+    #hists_nn = -np.sort(-hists_nn)
+    #print(hists_nn)
+
+    #hists = hists_nn[0:40]
+    #print(hists)
+    #hists = hists / np.sum(hists)
+    #hists = np.amax(hists_nn)  
+    
+    
+    #hists is an array containing the heights of the bins
+    #bins 
+    h,b = hist(img_gray, 40)
+    print(h,b)
+    return h,b
 
 
 
