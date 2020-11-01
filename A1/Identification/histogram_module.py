@@ -21,7 +21,6 @@ import gauss_module
 def normalized_hist(img_gray, num_bins):
   assert len(img_gray.shape) == 2, 'image dimension mismatch'
   assert img_gray.dtype == 'float', 'incorrect image type'
-  print(img_gray)
   data = []
   for row in img_gray:
     for col in row:
@@ -51,46 +50,19 @@ def rgb_hist(img_color_double, num_bins):
     assert len(img_color_double.shape) == 3, 'image dimension mismatch'
     assert img_color_double.dtype == 'float', 'incorrect image type'
 
-
-    #... (your code here)
-    print(img_color_double)
-    print(img_color_double.shape)
+    img_r = img_color_double[:, :, 0].reshape(img_color_double[:, :, 0].size)
+    img_g = img_color_double[:, :, 1].reshape(img_color_double[:, :, 1].size)
+    img_b = img_color_double[:, :, 2].reshape(img_color_double[:, :, 2].size)
 
     #Define a 3D histogram  with "num_bins^3" number of entries
     hists = np.zeros((num_bins, num_bins, num_bins))
-    img = []
-    print(hists.shape)
 
-    for i in img_color_double:
-      for j in i:
-        img.append(j)
-    
-    img_r = deepcopy(img_color_double)
-    img_g = deepcopy(img_color_double)
-    img_b = deepcopy(img_color_double)
-    for i in range(len(img_color_double)):
-      for j in range(len(img_color_double[i])):
-        img_r[i][j] = img_color_double[i][j][0]
-        img_g[i][j] = img_color_double[i][j][1]
-        img_b[i][j] = img_color_double[i][j][2]
-
-    hist_r = normalized_hist(img_r, num_bins)
-    hist_g = normalized_hist(img_g, num_bins)
-    hist_b = normalized_hist(img_b, num_bins)
-
-    hist = np.array([hist_r, hist_g, hist_b])
-
-    print(hist)
-
-    # Loop for each pixel i in the image 
+    #Loop for each pixel i in the image
     for i in range(img_color_double.shape[0]*img_color_double.shape[1]):
         # Increment the histogram bin which corresponds to the R,G,B value of the pixel i
-        
-        pass
-
+        hists[img_r[i], img_g[i], img_b[i]] += 1
 
     #Normalize the histogram such that its integral (sum) is equal 1
-    #... (your code here)
 
     #Return the histogram as a 1D vector
     hists = hists.reshape(hists.size)
