@@ -26,13 +26,15 @@ def normalized_hist(img_gray, num_bins):
     for col in row:
       data.append(col)
   data = np.array(data)
-
-  bin_array=np.linspace(0,255,num_bins)
-
-  my_histogram=[]
+  
+  bin_array = np.linspace(0,255,num_bins)
+  
+  my_histogram = []
   for i in range(len(bin_array)-1):
-    mask = (data>=bin_array[i])&(data<bin_array[i+1])
-    my_histogram.append(len(data[mask]))
+    mask = (data >= bin_array[i]) & (data < bin_array[i+1]) # Each True value represents the pixel of given intensity which should be in the bin bin_array[i].
+    my_histogram.append(len(data[mask])) # Count every pixel which should be in that bin.
+
+  my_histogram /= np.sum(my_histogram)
   return my_histogram, bin_array
 
 #  Compute the *joint* histogram for each color channel in the image
@@ -50,19 +52,40 @@ def rgb_hist(img_color_double, num_bins):
     assert len(img_color_double.shape) == 3, 'image dimension mismatch'
     assert img_color_double.dtype == 'float', 'incorrect image type'
 
-    img_r = img_color_double[:, :, 0].reshape(img_color_double[:, :, 0].size)
-    img_g = img_color_double[:, :, 1].reshape(img_color_double[:, :, 1].size)
-    img_b = img_color_double[:, :, 2].reshape(img_color_double[:, :, 2].size)
-
     #Define a 3D histogram  with "num_bins^3" number of entries
     hists = np.zeros((num_bins, num_bins, num_bins))
+
+    bin_array = np.linspace(0,255,num_bins)
+
+    img = np.reshape(img_color_double, (len(img_color_double[0])*len(img_color_double), 3))
 
     #Loop for each pixel i in the image
     for i in range(img_color_double.shape[0]*img_color_double.shape[1]):
         # Increment the histogram bin which corresponds to the R,G,B value of the pixel i
-        hists[img_r[i], img_g[i], img_b[i]] += 1
+
+        # Take R, G and B
+        r = img[i][0]
+        g = img[i][1]
+        b = img[i][2]
+
+        # Calculate R, G and B indexes
+        i_r = 0
+        i_g = 0
+        i_b = 0
+
+        for j in range(len(bin_array)-1):
+          if ((r >= bin_array[j]) & (r < bin_array[j+1])):
+            i_r = np.where(bin_array == bin_array[j])[0][0]
+          elif ((g >= bin_array[j]) & (g < bin_array[j+1])):
+            i_g = np.where(bin_array == bin_array[j])[0][0]
+          elif ((b >= bin_array[j]) & (b < bin_array[j+1])):
+            i_b = np.where(bin_array == bin_array[j])[0][0]
+
+        hists[i_r][i_g][i_b] += 1
+
 
     #Normalize the histogram such that its integral (sum) is equal 1
+    hists /= np.sum(hists)
 
     #Return the histogram as a 1D vector
     hists = hists.reshape(hists.size)
