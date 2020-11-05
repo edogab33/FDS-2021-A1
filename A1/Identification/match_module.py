@@ -57,7 +57,8 @@ def compute_histograms(image_list, hist_type, hist_isgray, num_bins):
 
     for i in image_list:
         img = np.array(Image.open(os.path.join(THIS_FOLDER, i)), float)
-        print(img)
+        if hist_isgray:
+            img = rgb2gray(img)
         image_hist.append(histogram_module.get_hist_by_name(img, num_bins, hist_type))
 
     return image_hist
@@ -73,8 +74,32 @@ def show_neighbors(model_images, query_images, dist_type, hist_type, num_bins):
     
     
     plt.figure()
+    plt.title("Top 5 neighbors")
 
     num_nearest = 5  # show the top-5 neighbors
     
-    #... (your code here)
+    best_match, D = find_best_match(model_images, query_images, dist_type, hist_type, num_bins)
+
+    fig, ax = plt.subplots(len(query_images), 6)
+    pos = 1
+    for i in range(len(query_images)):
+
+        img = np.array(Image.open(os.path.join(THIS_FOLDER, query_images[i])))
+        pos = 6*i + 1
+        plt.subplot(len(query_images), 6, pos)
+        plt.imshow(img)
+
+        for j in range(1,6):
+            best_match = np.amin(D[:,i])
+
+            model_index = np.where(D == best_match)[0][0]
+            D[model_index][i] = 10
+
+            img = np.array(Image.open(os.path.join(THIS_FOLDER, model_images[model_index])))
+
+            plt.subplot(len(query_images), 6, pos+j)
+            plt.imshow(img)
+
+    plt.show()
+
 
