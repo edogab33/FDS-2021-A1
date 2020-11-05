@@ -8,10 +8,7 @@ In our example we get a smoothed white point which reflects the bell-shaped fuct
 </p>
 <p>
 2. As for the mechanism explained above, filter.py applies first a normal Gaussian convolution parallel to the horizontal axes, but now the second convolution is the derivative $Dx$ of the Gaussian filter. The derivative filter array has, in the first half, values tending to 1, while in the second half the values tend to 0. This means that applying the filter in vertical ($Dx.T$) the upper part of the image is lighter, while the bottom part is darker.
-</p>
-<p>
 <img src="plot/Figure_5.png" width="100" height="100" align="right" border="0">
-</p>
 <p>
 3. Now the convolution is first applied with $Dx.T$ and then with $Gx$. The resulting image is the same as the second point, this means that the order in which the convolution is applied doesn't matter. Hence it seems that the convolution is commutative. The transformation could be different if the direction in which we apply the kernels changes, like for example ```conv(conv(img, Gx.T), Dx)``` (point 5 and 6).
 </p>
@@ -37,9 +34,11 @@ That, with the commutative one, create the association in point 2-3 and 5-6.
 </p>
 
 ### Point e
-
+<p>
 The derivative filter is used to detect edges. Ideally we should first smooth the image in order to remove the noise, in fact a smoothed image will remove small details. The effect to apply the derivative filter is to increase the change of colors, so it point out the differences. In our case the derivative filter is applied without smoothing the image first. Therefore in graf.png the filter highlight small details like the antenna of the car.
 In our case $\sigma$ is setted at 7.0. Edges are large, less defined and strength. Decreasing $\sigma$ has the effect to decreasing the edges but obtaining more defined lines.
 Applying the filter parallel to the $x$ axes, we highlight the vertical edges. For example in gantrycrane.png the central pillar is well defined in imgDx, while it almost disappear in imgDy. On the other hand, applying the filter prallel to the $y$ axes, the horizontal edges are spotted.
 The last image is obtained by calculating the magnitude of the gradient. This method highlights the edges in every direction.
 [ADD IMAGE on the botttom]In the image there are the two cases of the application of ```gaussderiv``` in two differences images. The left ones is the application on the first dimension, the centered ones the application on the other dimension and, at right, there are the result of merging. The merge of the two image derivate in $x$ and in $y$ explains the power-up of the edge on 2D.
+</p>
+<img src="plot/Figure_8_upgrade.png" width="150" height="150" align="center" border="0">
