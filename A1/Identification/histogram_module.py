@@ -154,9 +154,6 @@ def rg_hist(img_color_double, num_bins):
 #
 #  img_gray - input gray value image
 #  num_bins - number of bins used to discretize each dimension, total number of bins in the histogram should be num_bins^2
-#  hists[30, 10] means:
-#  - img_dx pixel intensity falls in bin 30
-#  - img_dy pixel intensity falls in bin 10
 #  Note: you may use the function gaussderiv from the Filtering exercise (gauss_module.py)
 def dxdy_hist(img_gray, num_bins):
     assert len(img_gray.shape) == 2, 'image dimension mismatch'
@@ -172,13 +169,12 @@ def dxdy_hist(img_gray, num_bins):
     #Define a 2D histogram  with "num_bins^2" number of entries
     hists = np.zeros((num_bins, num_bins))
 
-    bin_array = np.linspace(0,255,num_bins)
+    bin_array = np.linspace(-255,255,num_bins)
 
     for i in range(len(imgx)):
         in_x = imgx[i]
         in_y = imgy[i]
 
-        # Calculate R, G
         i_x = 0
         i_y = 0
 

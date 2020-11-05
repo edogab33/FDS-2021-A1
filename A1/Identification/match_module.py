@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import histogram_module
 import dist_module
 
+import os
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
 def rgb2gray(rgb):
 
     r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
@@ -32,10 +35,15 @@ def find_best_match(model_images, query_images, dist_type, hist_type, num_bins):
     query_hists = compute_histograms(query_images, hist_type, hist_isgray, num_bins)
     
     D = np.zeros((len(model_images), len(query_images)))
-    
-    
-    #... (your code here)
 
+    best_match = np.zeros(len(query_images))
+
+    for i in range(len(model_hists)):
+        for j in range(len(query_hists)):
+            D[i, j] = dist_module.get_dist_by_name(query_hists[j], model_hists[i], dist_type)
+
+    for i in range(len(best_match)):
+        best_match[i] = np.amin(D[:,i])
 
     return best_match, D
 
@@ -47,7 +55,10 @@ def compute_histograms(image_list, hist_type, hist_isgray, num_bins):
 
     # Compute hisgoram for each image and add it at the bottom of image_hist
 
-    #... (your code here)
+    for i in image_list:
+        img = np.array(Image.open(os.path.join(THIS_FOLDER, i)), float)
+        print(img)
+        image_hist.append(histogram_module.get_hist_by_name(img, num_bins, hist_type))
 
     return image_hist
 
