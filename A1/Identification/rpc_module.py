@@ -76,9 +76,9 @@ def compare_dist_rpc(model_images, query_images, dist_types, hist_type, num_bins
 #num_bins = 20;
 
 
-plt.figure(8)
-compare_dist_rpc(model_images, query_images, ['chi2', 'intersect', 'l2'], 'rg', num_bins, ['r', 'g', 'b'])
-plt.title('RG histograms')
-plt.show()
+#plt.figure(8)
+#compare_dist_rpc(model_images, query_images, ['chi2', 'intersect', 'l2'], 'rg', num_bins, ['r', 'g', 'b'])
+#plt.title('RG histograms')
+#plt.show()
 
 
