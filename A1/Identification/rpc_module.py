@@ -34,12 +34,28 @@ def plot_rpc(D, plot_color):
     tp = 0
     #... (your code here)
     
-    for idt in range(len(d)):
-        tp += l[idt]
-        #... (your code here)
-        
+        incr = (max_val - min_val) / 10000
+
+    for t in np.arange(min_val, max_val+incr, incr):
+        tp = 0
+        tn = 0
+        fn = 0
+        fp = 0
+        for i in range(len(d)):
+            if d[i] <= t:
+                if l[i] == 1:
+                    tp += 1
+                else:
+                    fp += 1
+            else:
+                if l[i] == 0:
+                    tn += 1
+                else:
+                    fn += 1
         #Compute precision and recall values and append them to "recall" and "precision" vectors
         #... (your code here)
+        precision.append(tp/(tp+fp))
+        recall.append(tp/(tp+fn))
     
     plt.plot([1-precision[i] for i in range(len(precision))], recall, plot_color+'-')
 
