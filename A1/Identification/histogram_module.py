@@ -23,7 +23,6 @@ import gauss_module
 def normalized_hist(img_gray, num_bins):
   assert len(img_gray.shape) == 2, 'image dimension mismatch'
   assert img_gray.dtype == 'float', 'incorrect image type'
-  print(img_gray)
   data = []
   for row in img_gray:
     for col in row:
