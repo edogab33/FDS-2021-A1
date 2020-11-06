@@ -44,7 +44,6 @@ def plot_rpc(D, plot_color):
     plt.plot([1-precision[i] for i in range(len(precision))], recall, plot_color+'-')
 
 
-
 def compare_dist_rpc(model_images, query_images, dist_types, hist_type, num_bins, plot_colors):
     
     assert len(plot_colors) == len(dist_types), 'number of distance types should match the requested plot colors'
@@ -66,5 +65,20 @@ def compare_dist_rpc(model_images, query_images, dist_types, hist_type, num_bins
 
 
 
+with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model.txt') as fp:
+    model_images = fp.readlines()
+model_images = [x.strip() for x in model_images] 
+
+with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/query.txt') as fp:
+    query_images = fp.readlines()
+query_images = [x.strip() for x in query_images] 
+
+num_bins = 20;
+
+
+plt.figure(8)
+compare_dist_rpc(model_images, query_images, ['chi2', 'intersect', 'l2'], 'rg', num_bins, ['r', 'g', 'b'])
+plt.title('RG histograms')
+plt.show()
 
 

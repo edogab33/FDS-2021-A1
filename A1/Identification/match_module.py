@@ -43,7 +43,7 @@ def find_best_match(model_images, query_images, dist_type, hist_type, num_bins):
             D[i, j] = dist_module.get_dist_by_name(query_hists[j], model_hists[i], dist_type)
 
     for i in range(len(best_match)):
-        best_match[i] = np.amin(D[:,i])
+        best_match[i] = np.where(D == np.amin(D[:,i]))[0][0]
 
     return best_match, D
 

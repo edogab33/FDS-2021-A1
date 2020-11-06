@@ -12,8 +12,12 @@ def dist_intersect(x,y):
     sum2 = np.sum(y)
     
     array_min = [min(x[i], y[i]) for i in range(len(x))]
-
-    return 1 - (1/2*((np.sum(array_min)/sum1)+((np.sum(array_min)/sum2))))
+    dist = 1 - (1/2*((np.sum(array_min)/sum1)+((np.sum(array_min)/sum2))))
+    if dist > 1:
+        dist = 1
+    elif dist < 0:
+        dist = 0
+    return dist
 
 
 

@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import histogram_module
 import dist_module
 import match_module
-import rpc_module
 
 
 def rgb2gray(rgb):
@@ -191,7 +190,7 @@ print('number of correct matches: %d (%f)\n'% (num_correct, 1.0 * num_correct / 
 
 ## plot recall_precision curves (Question 4)
 
-with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model.txt') as fp:
+#ith open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model.txt') as fp:
     model_images = fp.readlines()
 model_images = [x.strip() for x in model_images] 
 
