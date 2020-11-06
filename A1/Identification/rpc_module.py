@@ -65,15 +65,15 @@ def compare_dist_rpc(model_images, query_images, dist_types, hist_type, num_bins
 
 
 
-with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model.txt') as fp:
-    model_images = fp.readlines()
-model_images = [x.strip() for x in model_images] 
-
-with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/query.txt') as fp:
-    query_images = fp.readlines()
-query_images = [x.strip() for x in query_images] 
-
-num_bins = 20;
+#with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/model.txt') as fp:
+#    model_images = fp.readlines()
+#model_images = [x.strip() for x in model_images] 
+#
+#with open('/Users/edoardogabrielli/Documents/Università/ComputerScience/FoundationsOfDataScience/fds-2021/A1/Identification/query.txt') as fp:
+#    query_images = fp.readlines()
+#query_images = [x.strip() for x in query_images] 
+#
+#num_bins = 20;
 
 
 plt.figure(8)
