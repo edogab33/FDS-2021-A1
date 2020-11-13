@@ -27,6 +27,7 @@ def plot_rpc(D, plot_color):
     d = D.reshape(D.size)
     l = labels.reshape(labels.size)
      
+<<<<<<< HEAD
     sortidx = d.argsort() #list of indexes
     d = d[sortidx] #sorted according to sortidx
     l = l[sortidx] #those with l = 1 are tp, if the distance is < threshold it means that are false negative
@@ -35,6 +36,16 @@ def plot_rpc(D, plot_color):
     min_val = np.min(d)
 
     incr = (max_val - min_val) / 100000
+=======
+    sortidx = d.argsort()
+    d = d[sortidx]
+    l = l[sortidx]
+    
+    tp = 0
+    #... (your code here)
+    
+        incr = (max_val - min_val) / 10000
+>>>>>>> 345bd372a7ea5720e50e877d5931ffd8c758623a
 
     for t in np.arange(min_val, max_val+incr, incr):
         tp = 0
@@ -56,7 +67,11 @@ def plot_rpc(D, plot_color):
         #... (your code here)
         precision.append(tp/(tp+fp))
         recall.append(tp/(tp+fn))
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 345bd372a7ea5720e50e877d5931ffd8c758623a
     plt.plot([1-precision[i] for i in range(len(precision))], recall, plot_color+'-')
 
 
