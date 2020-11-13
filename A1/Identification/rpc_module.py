@@ -34,7 +34,7 @@ def plot_rpc(D, plot_color):
     max_val = np.amax(d)
     min_val = np.min(d)
 
-    incr = (max_val - min_val) / 1000
+    incr = (max_val - min_val) / 100000
 
     for t in np.arange(min_val, max_val+incr, incr):
         tp = 0
